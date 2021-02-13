@@ -20,6 +20,12 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
+        //[LogAspect]-->AOP
+        //[Validate]
+        //[RemoveCache]
+        //[Transaction]
+        //[Performance]
+        //[Cache]
         public IResults Add(Product product)
         {
             //business codes
@@ -39,12 +45,12 @@ namespace Business.Concrete
             //İş kodları
             //Yetkisi var mı?
             //InMemoryProductDal InMemoryProductDal = new InMemoryProductDal();
-            
-            if (DateTime.Now.Hour==22)
+
+            if (DateTime.Now.Hour == 1)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
-            
+
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductsListed);
         }
 
