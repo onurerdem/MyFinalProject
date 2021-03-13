@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
             //Dependency chain --
             //IProductService productService = new ProductManager(new EfProductDal());
 
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
             
             var result = _productService.GetAll();
             if (result.Success)
@@ -65,6 +65,30 @@ namespace WebAPI.Controllers
         public IActionResult GetById(int id)
         {
             var result = _productService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbycategory")]
+        public IActionResult GetByCategory(int categoryId)
+        {
+            var result = _productService.GetAllByCategoryId(categoryId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpGet("getproductdetails")]
+        public IActionResult GetProductDetails(int categoryId)
+        {
+            var result = _productService.GetProductDetails();
             if (result.Success)
             {
                 return Ok(result);
